@@ -1,5 +1,9 @@
 import User from "../models/usermodel.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"; 
+
+
+
 
 const createUser = async (req, res) => {
     try {
@@ -29,7 +33,14 @@ const loginUser = async (req, res) => {
             });
         }
         if (same) {
-            res.status(200).send("Login successful");
+            const token = createToken(user._id);
+            res.cookie("jwt", token, {
+                httpOnly: true,
+                maxAge: 24 * 60 * 60 * 1000
+            });
+
+            res.redirect("/users/dashboard");
+            
         } else {
             res.status(400).send("Invalid credentials");
         }
@@ -43,5 +54,20 @@ const loginUser = async (req, res) => {
     }
 }
 
+const createToken=(userId) => {
+    return jwt.sign({
+        userId
+    }, process.env.JWT_SECRET, {
+        expiresIn: "1h"
+    });
+}
 
-export { createUser, loginUser };
+const getDashboardPage = (req, res) => {
+    res.render('dashboard',{
+        link:"dashboard"
+    
+    });
+}
+
+
+export { createUser, loginUser, getDashboardPage };
