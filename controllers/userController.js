@@ -1,6 +1,7 @@
 import User from "../models/usermodel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"; 
+import Photo from "../models/photomodel.js";
 
 
 
@@ -13,7 +14,7 @@ const createUser = async (req, res) => {
             user: user._id
         });
     } catch (error) {
-        console.log("ERRORS::::",error);
+        
 
         let errors2 ={}
 
@@ -28,7 +29,7 @@ const createUser = async (req, res) => {
             
             });
         }
-            console.log("ERRORS2::::",errors2);
+            
 
         res.status(400).json({
             succeded: false,
@@ -47,7 +48,7 @@ const loginUser = async (req, res) => {
         let same = false;
         if (user) {
             same = await bcrypt.compare(password, user.password);
-            console.log(same);
+            
         }else{
             return res.status(401).json({
                 succeded: false,
@@ -84,9 +85,11 @@ const createToken=(userId) => {
     });
 }
 
-const getDashboardPage = (req, res) => {
+const getDashboardPage = async (req, res) => {
+    const photos= await Photo.find({user:res.locals.user._id});
     res.render('dashboard',{
-        link:"dashboard"
+        link:"dashboard",
+        photos,
     
     });
 }

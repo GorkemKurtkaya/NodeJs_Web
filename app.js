@@ -29,7 +29,7 @@ app.use(cookieParser());
 
 
 //routes
-app.get('*', checkUser); //her requestte çalışacak
+app.use('*', checkUser); //her requestte çalışacak
 app.use("/",pageRoute);
 app.use("/photos",photoRoute);
 app.use("/users",userRoute);
