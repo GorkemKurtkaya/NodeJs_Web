@@ -140,6 +140,11 @@ const follow = async (req, res) => {
             }
         }, { new: true });
 
+        res.status(200).json({
+            succeded: true,
+            user
+        });
+
     }
     catch (error) {
         res.status(400).json({
@@ -162,6 +167,11 @@ const unfollow = async (req, res) => {
             }
         }, { new: true });
 
+        res.status(200).json({
+            succeded: true,
+            user
+        });
+
     }
     catch (error) {
         res.status(400).json({
@@ -171,4 +181,4 @@ const unfollow = async (req, res) => {
     }
 }
 
-export { createUser, loginUser, getDashboardPage, getAllUsers, getAUsers,follow,unfollow };
+export { createUser, loginUser, getDashboardPage, getAllUsers, getAUsers, follow, unfollow };

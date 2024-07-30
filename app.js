@@ -8,6 +8,7 @@ import userRoute from './routes/userRoute.js';
 import { checkUser } from './middlewares/authMiddleWare.js';
 import fileUpload from 'express-fileupload';
 import { v2 as cloudinary } from 'cloudinary';
+import methodOverride from 'method-override';
 
 
 dotenv.config();
@@ -35,6 +36,9 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 app.use(fileUpload({
     useTempFiles:true
+}));
+app.use(methodOverride('_method', {
+    methods: ['POST', 'GET']
 }));
 
 

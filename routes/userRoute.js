@@ -10,6 +10,6 @@ router.route('/dashboard').get(authMiddleWare.authenticateToken, userController.
 router.route('/').get(authMiddleWare.authenticateToken, userController.getAllUsers);
 router.route('/:id').get(authMiddleWare.authenticateToken, userController.getAUsers);
 router.route('/:id/follow').put(authMiddleWare.authenticateToken, userController.follow);
-router.route('/:id/follow').put(authMiddleWare.authenticateToken, userController.unfollow);
+router.route('/:id/unfollow').put(authMiddleWare.authenticateToken, userController.unfollow);
 
 export default router;
