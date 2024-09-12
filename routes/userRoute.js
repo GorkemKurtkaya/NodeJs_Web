@@ -11,5 +11,7 @@ router.route('/').get(authMiddleWare.authenticateToken, userController.getAllUse
 router.route('/:id').get(authMiddleWare.authenticateToken, userController.getAUsers);
 router.route('/:id/follow').put(authMiddleWare.authenticateToken, userController.follow);
 router.route('/:id/unfollow').put(authMiddleWare.authenticateToken, userController.unfollow);
+router.route('/oneuser/:id').get( userController.getAOneUser);
+
 
 export default router;

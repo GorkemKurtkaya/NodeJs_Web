@@ -180,4 +180,29 @@ const unfollow = async (req, res) => {
     }
 }
 
-export { createUser, loginUser, getDashboardPage, getAllUsers, getAUsers, follow, unfollow };
+const getAOneUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        
+        if (!user) {
+            return res.status(404).json({
+                succeded: false,
+                error: "User not found"
+            });
+        }
+
+        res.status(200).json({
+            username: user.username,
+            email:user.email,
+            followings:user.followings
+        });
+    }
+    catch (error) {
+        res.status(400).json({
+            succeded: false,
+            error: error.message
+        });
+    }
+}
+
+export { createUser, loginUser, getDashboardPage, getAllUsers, getAUsers, follow, unfollow,getAOneUser };
